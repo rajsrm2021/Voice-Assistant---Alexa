@@ -24,13 +24,13 @@ This project is a simple voice assistant built using Python. It can perform vari
 1. Clone the repository:
 
     ```
-    git clone https://github.com/your_username/voice-assistant.git
+    https://github.com/rajsrm2021/Voice-Assistant---Alexa.git
     ```
 
 2. Navigate to the project directory:
 
     ```
-    cd voice-assistant
+    cd Voice-Assistant---Alexa
     ```
 
 3. Install the required dependencies:
@@ -42,7 +42,7 @@ This project is a simple voice assistant built using Python. It can perform vari
 4. Run the script:
 
     ```
-    python voice_assistant.py
+    python main.py
     ```
 
 5. Start speaking commands prefixed with "Alexa".
@@ -57,11 +57,8 @@ This project is a simple voice assistant built using Python. It can perform vari
 - **Joke**: Tells a random joke.
 - **Send message**: Sends a WhatsApp message. It will prompt for the recipient and the message.
 
-## Author
+## creator
 
-- Your Name
-- GitHub: [Your GitHub Profile](https://github.com/your_username)
+- Raj Kumar Jaiswal
+- GitHub: [Your GitHub Profile](https://github.com/rajsrm2021)
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
