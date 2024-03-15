@@ -20,6 +20,7 @@ def talk(text):
 def take_command():
     try:
         with sr.Microphone() as source:
+            talk("Hi! I am Alexa your voice assistant How can I help You today")
             print("Listening....")
             voice = listener.listen(source)
             command = listener.recognize_google(voice)  #google api
@@ -48,6 +49,11 @@ def run_alexa():
     elif 'who'  in command:
         person = command.replace('who','')
         info = wikipedia.summary(person,1)
+        print(info)
+        talk(info)
+    elif 'about'  in command:
+        # person = command.replace('about','')
+        info = wikipedia.summary(command,1)
         print(info)
         talk(info)
 
