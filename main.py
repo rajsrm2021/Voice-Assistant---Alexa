@@ -54,6 +54,8 @@ def run_jiya():
             time = datetime.datetime.now().strftime('%H:%M')
             print("Current time is " + time)
             talk("Current time is " + time)
+        elif "how are you" in command:
+            talk('I am fine how about you.')
 
         elif 'tell me about you' in command:
             talk(

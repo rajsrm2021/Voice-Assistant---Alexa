@@ -57,6 +57,10 @@ This project is a simple voice assistant built using Python. It can perform vari
 - **Joke**: Tells a random joke.
 - **Send message**: Sends a WhatsApp message. It will prompt for the recipient and the message.
 
+## DEMO Video
+
+https://github.com/rajsrm2021/Voice-Assistant---Alexa/assets/103736313/039ff6a1-7659-46d3-87a9-5ec688ce55b8
+
 ## creator
 
 - Raj Kumar Jaiswal
