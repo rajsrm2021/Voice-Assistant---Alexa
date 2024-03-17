@@ -24,13 +24,13 @@ This project is a simple voice assistant built using Python. It can perform vari
 1. Clone the repository:
 
     ```
-    https://github.com/rajsrm2021/Voice-Assistant---Alexa.git
+    https://github.com/rajsrm2021/Voice-Assistant-Alexa.git
     ```
 
 2. Navigate to the project directory:
 
     ```
-    cd Voice-Assistant---Alexa
+    cd Voice-Assistant-Alexa
     ```
 
 3. Install the required dependencies:
