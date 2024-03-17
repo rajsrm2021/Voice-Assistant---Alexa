@@ -16,69 +16,100 @@ def talk(text):
     engine.say(text)
     engine.runAndWait()
 
+def greeting():
+    talk("Hi! I am jiya, your voice assistant. How can I help you today?")
+
 
 def take_command():
+    command = None
     try:
         with sr.Microphone() as source:
-            talk("Hi! I am Alexa your voice assistant How can I help You today")
             print("Listening....")
-            voice = listener.listen(source)
-            command = listener.recognize_google(voice)  #google api
-            command = command.lower()
-            if 'alexa' in command:
-                command = command.replace('alexa', '')
-                # talk(command)
+            # Adjust the timeout to your preference
+            voice = listener.listen(source, timeout=5)  # Waits for 5 seconds for user to speak
+            command = listener.recognize_google(voice).lower()
+            if 'jiya' in command:
+                command = command.replace('jiya', '').strip()
                 print(command)
-
-    except:
-        pass
+    except sr.WaitTimeoutError:
+        print("No input detected. Please try speaking again.")
+    except sr.UnknownValueError:
+        print("Google Speech Recognition could not understand the audio.")
+    except sr.RequestError as e:
+        print(f"Could not request results from Google Speech Recognition service; {e}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
     return command
 
-def run_alexa():
+def run_jiya():
     command = take_command()
-    print(command)
-    if 'play' in command:
-        song = command.replace('play', '')
-        talk('playing' + song)
-        pywhatkit.playonyt(song)
-    elif 'time' in command:
-        time = datetime.datetime.now().strftime('%H:%M')
-        print("Current time is "+time)
-        talk("Current time is " + time)
 
-    elif 'who'  in command:
-        person = command.replace('who','')
-        info = wikipedia.summary(person,1)
-        print(info)
-        talk(info)
-    elif 'about'  in command:
-        # person = command.replace('about','')
-        info = wikipedia.summary(command,1)
-        print(info)
-        talk(info)
+    if command:
+        print(command)
+        if 'play' in command:
+            song = command.replace('play', '', 1).strip()
+            talk('Playing ' + song)
+            pywhatkit.playonyt(song)
+        elif 'time' in command:
+            time = datetime.datetime.now().strftime('%H:%M')
+            print("Current time is " + time)
+            talk("Current time is " + time)
 
-    elif 'date' in command:
-        talk('I have a Boyfriend')
+        elif 'who' in command:
+            person = command.replace('who', '')
+            info = wikipedia.summary(person, 1)
+            print(info)
+            talk(info)
 
-    elif 'are you single' in command:
-        talk('I am in a relationship with wifi')
+        elif 'tell me about you' in command:
+            talk(
+                'I am jiya a voice assistant made by Raj kumar jaiswal. I can help you find answers get things done, and have fun')
 
-    elif 'joke' in command:
-        # print(pyjokes.get_joke())
-        talk(pyjokes.get_joke())
+        elif 'about' in command:
+            # person = command.replace('about','')
+            info = wikipedia.summary(command, 1)
+            print(info)
+            talk(info)
+        elif 'who' in command:
+            # person = command.replace('about','')
+            info = wikipedia.summary(command, 1)
+            print(info)
+            talk(info)
 
-    elif 'send message' in command:
-        talk('Whom do you want to send the message to?')
-        recipient = take_command()
-        talk('What is the message?')
-        message = take_command()
-        pywhatkit.sendwhatmsg_instantly(recipient, message)  #i have to resolve it
-        talk('Message sent.')
+        elif 'romantic date' in command:
+            talk('I will go anywhere you take me')
+
+        elif 'are you single' in command:
+            talk('I am happy to say I feel whole all on my own')
+
+        elif 'joke' in command:
+            # print(pyjokes.get_joke())
+            talk(pyjokes.get_joke())
+
+        elif 'send message' in command:
+            talk('Whom do you want to send the message to?')
+            recipient = take_command()
+            talk('What is the message?')
+            message = take_command()
+            pywhatkit.sendwhatmsg_instantly(recipient, message)  # i have to resolve it
+            talk('Message sent.')
 
 
     else:
         talk('Please say the command again.')
 
 
-while True:
-    run_alexa()
+greeting()
+attempts = 0
+max_attempts = 3  # Set the maximum number of attempts for no input
+
+while attempts < max_attempts:
+    command = run_jiya()
+    if command:
+        attempts = 0  # Reset attempts if a command was successfully received
+    else:
+        attempts += 1
+        if attempts >= max_attempts:
+            talk("No input detected multiple times. Goodbye.")
+            break  # Exit the program after max attempts
+
