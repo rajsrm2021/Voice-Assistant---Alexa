@@ -55,12 +55,6 @@ def run_jiya():
             print("Current time is " + time)
             talk("Current time is " + time)
 
-        elif 'who' in command:
-            person = command.replace('who', '')
-            info = wikipedia.summary(person, 1)
-            print(info)
-            talk(info)
-
         elif 'tell me about you' in command:
             talk(
                 'I am jiya a voice assistant made by Raj kumar jaiswal. I can help you find answers get things done, and have fun')
@@ -85,31 +79,40 @@ def run_jiya():
         elif 'joke' in command:
             # print(pyjokes.get_joke())
             talk(pyjokes.get_joke())
+        elif "stop" in command:
+            talk("GoodBye")
+            return False # Signal to stop the loop
 
-        elif 'send message' in command:
-            talk('Whom do you want to send the message to?')
-            recipient = take_command()
-            talk('What is the message?')
-            message = take_command()
-            pywhatkit.sendwhatmsg_instantly(recipient, message)  # i have to resolve it
-            talk('Message sent.')
+        # elif 'send message' in command:
+        #     talk('Whom do you want to send the message to?')
+        #     recipient = take_command()
+        #     talk('What is the message?')
+        #     message = take_command()
+        #     pywhatkit.sendwhatmsg_instantly(recipient, message)  # i have to resolve it
+        #     talk('Message sent.')
 
 
     else:
         talk('Please say the command again.')
+    return True  # Continue running
 
 
 greeting()
+keep_running = True
+
+# Define attempts outside the loop
 attempts = 0
 max_attempts = 3  # Set the maximum number of attempts for no input
 
-while attempts < max_attempts:
-    command = run_jiya()
-    if command:
-        attempts = 0  # Reset attempts if a command was successfully received
-    else:
+while attempts < max_attempts and keep_running:
+    command_result = run_jiya()  # Adjusted to handle None differently
+    if command_result is False:  # Explicit stop command detected
+        break
+    elif command_result is None:  # No input detected
         attempts += 1
         if attempts >= max_attempts:
             talk("No input detected multiple times. Goodbye.")
-            break  # Exit the program after max attempts
+            break
+    else:
+        attempts = 0  # Reset attempts if a valid command was received
 
